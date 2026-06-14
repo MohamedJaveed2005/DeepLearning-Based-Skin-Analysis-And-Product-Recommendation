@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skin Analysis – Organic Spa</title>
+    <!-- Google Fonts for Organic look: Serif headings + Sans body -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for botanical icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <!-- Subtle animated background elements -->
+    <div class="bg-leaves">
+        <i class="fas fa-leaf leaf leaf-1"></i>
+        <i class="fas fa-seedling leaf leaf-2"></i>
+        <i class="fas fa-leaf leaf leaf-3"></i>
+    </div>
+
+    <div class="container">
+        <!-- Header with botanical feel -->
+        <header class="app-header">\
+            <div style="text-align: right; margin-bottom: 10px;">
+    <a href="{{ url_for('auth.logout') }}" style="color: var(--color-green-deep); text-decoration: none; font-weight: 600;">
+        <i class="fas fa-sign-out-alt"></i> Logout
+    </a>
+</div>
+            <div class="logo">
+                <i class="fas fa-spa"></i>
+                <span>PureSkin</span>
+            </div>
+            <h1>Discover Your Skin's True Nature</h1>
+            <p class="subtitle">Upload a clear photo and let our gentle AI reveal your skin type and concerns.</p>
+        </header>
+
+        <!-- Upload Section -->
+        <div class="upload-section card">
+            <div class="upload-area" id="uploadArea">
+                <input type="file" id="imageInput" accept="image/*" hidden>
+                <div class="upload-content">
+                    <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                    <h3>Drop your image here</h3>
+                    <p>or <span class="browse-link">browse from device</span></p>
+                    <span class="file-hint">JPG, PNG (max 16MB)</span>
+                </div>
+            </div>
+
+            <div class="preview-section" id="previewSection" style="display: none;">
+                <div class="preview-image-wrapper">
+                    <img id="previewImage" src="" alt="Preview">
+                </div>
+                <div class="preview-actions">
+                    <button id="analyzeBtn" class="btn btn-primary">
+                        <i class="fas fa-flask"></i> Analyze Skin
+                    </button>
+                    <button id="resetBtn" class="btn btn-outline">
+                        <i class="fas fa-undo-alt"></i> New Photo
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Loading State -->
+        <div class="loading-section card" id="loading" style="display: none;">
+            <div class="spinner">
+                <i class="fas fa-spinner fa-pulse"></i>
+            </div>
+            <h3>Analyzing your skin...</h3>
+            <p>Our AI is gently examining your photo</p>
+        </div>
+
+        <!-- Results Section -->
+        <div class="results-section" id="results" style="display: none;">
+            <h2 class="results-heading">
+                <i class="fas fa-leaf"></i> Your Skin Analysis
+            </h2>
+
+            <!-- Main result card -->
+            <div class="result-card card">
+                <div class="result-image">
+                    <img id="resultImage" src="" alt="Analyzed face">
+                    <div class="face-badge">
+                        <i class="fas fa-check-circle"></i> Face detected
+                    </div>
+                </div>
+                <div class="result-details">
+                    <div class="detail-item">
+                        <span class="label"><i class="fas fa-droplet"></i> Skin Type</span>
+                        <span class="value" id="skinType">--</span>
+                        <span class="confidence" id="skinConfidence"></span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="label"><i class="fas fa-exclamation-triangle"></i> Acne Status</span>
+                        <span class="value" id="acneStatus">--</span>
+                        <span class="confidence" id="acneConfidence"></span>
+                    </div>
+                    <div class="detail-note">
+                        <i class="fas fa-info-circle"></i> Results based on deep learning analysis
+                    </div>
+                </div>
+            </div>
+
+            <!-- Skincare Tips (Wellness) -->
+            <div class="tips-section card">
+                <h3><i class="fas fa-spa"></i> Personalized Rituals</h3>
+                <ul id="tipsList" class="tips-list">
+                    <!-- Tips will be inserted by JS -->
+                </ul>
+            </div>
+
+            <!-- Product Recommendations -->
+            <div class="products-section">
+                <h3><i class="fas fa-flask"></i> Recommended for You</h3>
+                <div class="products-grid" id="productsGrid">
+                    <!-- Products inserted dynamically -->
+                </div>
+                <div id="noProductsMessage" style="display: none;" class="empty-message">
+                    <i class="fas fa-leaf"></i>
+                    <p>No specific products found. We recommend gentle, natural skincare.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Keep existing JavaScript – it already works with the same IDs -->
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <!-- Additional JS to update confidence display -->
+    <script>
+        // Slight modification to display confidence percentages if available
+        // (This integrates with the existing main.js)
+        document.addEventListener('DOMContentLoaded', function() {
+            const originalFetch = window.fetch;
+            window.fetch = function(...args) {
+                return originalFetch.apply(this, args).then(response => {
+                    if (response.url.includes('/analyze') && response.ok) {
+                        const clonedResponse = response.clone();
+                        clonedResponse.json().then(data => {
+                            if (data.confidence) {
+                                const skinConfSpan = document.getElementById('skinConfidence');
+                                const acneConfSpan = document.getElementById('acneConfidence');
+                                if (skinConfSpan) skinConfSpan.textContent = data.confidence.skin || '';
+                                if (acneConfSpan) acneConfSpan.textContent = data.confidence.acne || '';
+                            }
+                            // Handle no products message
+                            const productsGrid = document.getElementById('productsGrid');
+                            const noProductsMsg = document.getElementById('noProductsMessage');
+                            if (data.products && data.products.length === 0) {
+                                if (productsGrid) productsGrid.style.display = 'none';
+                                if (noProductsMsg) noProductsMsg.style.display = 'block';
+                            } else {
+                                if (productsGrid) productsGrid.style.display = 'grid';
+                                if (noProductsMsg) noProductsMsg.style.display = 'none';
+                            }
+                        });
+                    }
+                    return response;
+                });
+            };
+        });
+    </script>
+</body>
+</html>

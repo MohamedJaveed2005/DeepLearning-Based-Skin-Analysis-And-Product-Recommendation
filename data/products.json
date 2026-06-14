@@ -1,0 +1,156 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "Oil Control Face Wash",
+      "brand": "Clean & Clear",
+      "category": "Cleanser",
+      "skin_type": ["Oily"],
+      "skin_concern": ["Acne", "Oil Control"],
+      "price": "$8.99",
+      "description": "Deep cleansing face wash that removes excess oil and prevents acne.",
+      "image": "oil control.jpg"
+    },
+    {
+      "id": 2,
+      "name": "Hydrating Facial Cleanser",
+      "brand": "CeraVe",
+      "category": "Cleanser",
+      "skin_type": ["Dry", "Normal"],
+      "skin_concern": ["Dryness"],
+      "price": "$14.99",
+      "description": "Gentle hydrating cleanser with ceramides for dry skin.",
+      "image": "hydrating cleanser.jpg"
+    },
+    {
+      "id": 3,
+      "name": "Salicylic Acid Acne Treatment",
+      "brand": "The Ordinary",
+      "category": "Treatment",
+      "skin_type": ["Oily"],
+      "skin_concern": ["Acne"],
+      "price": "$6.50",
+      "description": "Targets acne and unclogs pores with 2% salicylic acid.",
+      "image": "Salicylic Acid.jpg"
+    },
+    {
+      "id": 4,
+      "name": "Rich Moisturizing Cream",
+      "brand": "La Roche-Posay",
+      "category": "Moisturizer",
+      "skin_type": ["Dry"],
+      "skin_concern": ["Dryness"],
+      "price": "$19.99",
+      "description": "Intense hydration for very dry and sensitive skin.",
+      "image": "Moisturizing Cream.jpg"
+    },
+    {
+      "id": 5,
+      "name": "Oil-Free Moisturizer SPF 35",
+      "brand": "Neutrogena",
+      "category": "Moisturizer",
+      "skin_type": ["Oily", "Normal"],
+      "skin_concern": ["Oil Control"],
+      "price": "$12.99",
+      "description": "Lightweight, oil-free moisturizer with SPF 35.",
+      "image": "Oil Free Moisturizer.jpg"
+    },
+    {
+      "id": 6,
+      "name": "Gentle Skin Cleanser",
+      "brand": "Cetaphil",
+      "category": "Cleanser",
+      "skin_type": ["Dry", "Normal", "Oily"],
+      "skin_concern": ["Sensitive"],
+      "price": "$11.99",
+      "description": "Mild, non-irritating formula for all skin types.",
+      "image": "skin cleanser.jpg"
+    },
+    {
+      "id": 7,
+      "name": "Benzoyl Peroxide Gel",
+      "brand": "PanOxyl",
+      "category": "Treatment",
+      "skin_type": ["Oily"],
+      "skin_concern": ["Acne"],
+      "price": "$9.99",
+      "description": "Maximum strength acne treatment that kills acne-causing bacteria.",
+      "image": "benzoil peroxide.jpg"
+    },
+    {
+      "id": 8,
+      "name": "Hyaluronic Acid Serum",
+      "brand": "The Ordinary",
+      "category": "Serum",
+      "skin_type": ["Dry", "Normal"],
+      "skin_concern": ["Dryness", "Hydration"],
+      "price": "$7.90",
+      "description": "Deep hydration with 2% hyaluronic acid.",
+      "image": "Hyaluronic Acid.jpg"
+    },
+    {
+      "id": 9,
+      "name": "Niacinamide 10% + Zinc 1%",
+      "brand": "The Ordinary",
+      "category": "Serum",
+      "skin_type": ["Oily", "Normal"],
+      "skin_concern": ["Acne", "Oil Control"],
+      "price": "$5.90",
+      "description": "Reduces blemishes and controls sebum production.",
+      "image": "Niacinamide + Zinc.jpg"
+    },
+    {
+      "id": 10,
+      "name": "Daily Moisturizing Lotion",
+      "brand": "Aveeno",
+      "category": "Moisturizer",
+      "skin_type": ["Dry", "Normal"],
+      "skin_concern": ["Dryness"],
+      "price": "$10.99",
+      "description": "Soothing oatmeal formula for 24-hour moisture.",
+      "image": "Daily Lotion.jpg"
+    },
+    {
+      "id": 11,
+      "name": "Tea Tree Oil Face Wash",
+      "brand": "The Body Shop",
+      "category": "Cleanser",
+      "skin_type": ["Oily"],
+      "skin_concern": ["Acne"],
+      "price": "$13.00",
+      "description": "Purifying cleanser with tea tree oil for blemish-prone skin.",
+      "image": "Tea Tree.jpg"
+    },
+    {
+      "id": 12,
+      "name": "Ultra Facial Cream",
+      "brand": "Kiehl's",
+      "category": "Moisturizer",
+      "skin_type": ["Dry", "Normal"],
+      "skin_concern": ["Dryness"],
+      "price": "$22.00",
+      "description": "24-hour hydration with glacial glycoprotein.",
+      "image": "Facial Cream.jpg"
+    }
+  ],
+  "skincare_tips": {
+    "Oily": [
+      "Wash face twice daily with oil-free cleanser",
+      "Use oil-free, non-comedogenic products",
+      "Don't skip moisturizer - use lightweight, gel-based formulas",
+      "Use blotting papers during the day to control shine"
+    ],
+    "Dry": [
+      "Use gentle, hydrating cleansers",
+      "Apply moisturizer immediately after washing",
+      "Use a humidifier in dry environments",
+      "Avoid hot water when washing face"
+    ],
+    "Normal": [
+      "Maintain regular cleansing routine",
+      "Use broad-spectrum sunscreen daily",
+      "Exfoliate 1-2 times per week",
+      "Stay hydrated and maintain healthy diet"
+    ]
+  }
+}
