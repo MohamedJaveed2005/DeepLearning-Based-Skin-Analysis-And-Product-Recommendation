@@ -20,3 +20,17 @@ instance/
 # OS files
 .DS_Store
 Thumbs.db
+
+# Datasets (raw and processed)
+Acne/
+Oily-Dry-Skin-Types/
+dataset_acne/
+dataset_skin_type/
+
+# Unnecessary scripts
+check_training_data.py
+diagnose_skin_model.py
+organize_two_stage.py
+train_acne_model_fixed.py
+train_model.py
+models.zip
