@@ -410,7 +410,7 @@ Confidence: 89.8%
 
 **Mohamed Javeed A**
 
-Software Engineer | Deep Learning Enthusiast | Cloud Computing Enthusiast
+Software Engineer | Deep Learning Enthusiast 
 
 GitHub:
 https://github.com/MohamedJaveed2005
