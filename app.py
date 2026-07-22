@@ -15,6 +15,11 @@ import webbrowser
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, login_required
 from models import db, User
+from facial_region import (
+    extract_regions,
+    save_regions,
+    draw_regions
+)
 
 # --- Load acne class mapping ---
 try:
@@ -58,6 +63,7 @@ app.register_blueprint(auth_blueprint)
 # --- Ensure necessary directories exist ---
 os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
 os.makedirs('models', exist_ok=True)
+os.makedirs('static/region_images', exist_ok=True)
 
 # --- Load deep learning models ---
 try:
@@ -170,6 +176,37 @@ def analyze_skin():
         else:
             face_path = filepath
 
+        # ---------------------------------------------
+        # Facial Region Analysis
+        # ---------------------------------------------
+
+        original_image = cv2.imread(filepath)
+
+        regions = extract_regions(original_image)
+
+        if regions is not None:
+            save_regions(regions)
+
+            annotated = draw_regions(
+                original_image,
+                regions["bbox"]
+            )
+
+            annotated_path = os.path.join(
+                app.config['UPLOAD_FOLDER'],
+                "annotated_" + filename
+            )
+
+            cv2.imwrite(
+                annotated_path,
+                annotated
+            )
+            print("Annotated Path:", annotated_path)
+            print("Image Saved:", os.path.exists(annotated_path))
+            print("Image Shape:", annotated.shape)
+        else:
+            annotated_path = filepath
+
         # Predict
         skin_type, skin_conf = predict_skin_type(face_path)
         acne_status, acne_conf = predict_acne(face_path)
@@ -178,18 +215,49 @@ def analyze_skin():
         products, tips = get_recommendations(skin_type, acne_status)
 
         result = {
-            'success': True,
-            'skin_type': skin_type,
-            'acne_status': acne_status,
-            'confidence': {
-                'skin': f"{skin_conf:.1%}",
-                'acne': f"{acne_conf:.1%}"
-            },
-            'face_detected': face_detected,
-            'products': products,
-            'tips': tips,
-            'image_path': f'/static/uploads/{filename}'
-        }
+
+    "success": True,
+
+    "skin_type": skin_type,
+
+    "acne_status": acne_status,
+
+    "confidence": {
+        "skin": f"{skin_conf:.1%}",
+        "acne": f"{acne_conf:.1%}"
+    },
+
+    "face_detected": face_detected,
+
+    "products": products,
+
+    "tips": tips,
+
+    "image_path": f"/static/uploads/{filename}",
+
+    "annotated_face":
+        f"/static/uploads/annotated_{filename}",
+
+    "regions": {
+
+        "forehead":
+            "/static/region_images/forehead.jpg",
+
+        "nose":
+            "/static/region_images/nose.jpg",
+
+        "left_cheek":
+            "/static/region_images/left_cheek.jpg",
+
+        "right_cheek":
+            "/static/region_images/right_cheek.jpg",
+
+        "chin":
+            "/static/region_images/chin.jpg"
+
+    }
+
+}
 
         return jsonify(result)
 

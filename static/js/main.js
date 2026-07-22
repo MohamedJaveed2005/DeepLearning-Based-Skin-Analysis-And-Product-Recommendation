@@ -140,6 +140,33 @@
 
             // Result image
             if (resultImage) resultImage.src = data.image_path;
+            // ----------------------------
+// Facial Region Analysis
+// ----------------------------
+
+if (data.annotated_face) {
+    document.getElementById("annotatedFace").src =
+        data.annotated_face + "?t=" + new Date().getTime();
+}
+
+if (data.regions) {
+
+    document.getElementById("foreheadImage").src =
+        data.regions.forehead + "?t=" + new Date().getTime();
+
+    document.getElementById("noseImage").src =
+        data.regions.nose + "?t=" + new Date().getTime();
+
+    document.getElementById("leftCheekImage").src =
+        data.regions.left_cheek + "?t=" + new Date().getTime();
+
+    document.getElementById("rightCheekImage").src =
+        data.regions.right_cheek + "?t=" + new Date().getTime();
+
+    document.getElementById("chinImage").src =
+        data.regions.chin + "?t=" + new Date().getTime();
+
+}
 
             // Skin type & acne
             if (skinTypeSpan) skinTypeSpan.textContent = data.skin_type || '--';

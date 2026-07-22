@@ -745,3 +745,90 @@ h1 {
     .detail-item .value { font-size: 1.8rem; }
     .logo span { font-size: 20px; }
 }
+/* =====================================================
+   Facial Region Analysis
+===================================================== */
+
+.region-analysis-section{
+    margin-top:40px;
+}
+
+.region-analysis-section h3{
+    margin-bottom:25px;
+    color:#2d5a27;
+    text-align:center;
+    font-size:28px;
+}
+
+.annotated-face-container{
+    text-align:center;
+    margin-bottom:35px;
+}
+
+.annotated-face-container h4{
+    margin-bottom:15px;
+    color:#444;
+}
+
+.annotated-face{
+    width:100%;
+    max-width:500px;
+    border-radius:15px;
+    border:3px solid #6ab04c;
+    box-shadow:0 8px 20px rgba(0,0,0,0.15);
+    transition:0.3s;
+}
+
+.annotated-face:hover{
+    transform:scale(1.02);
+}
+
+.regions-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:25px;
+    margin-top:20px;
+}
+
+.region-card{
+    background:#ffffff;
+    border-radius:15px;
+    padding:15px;
+    text-align:center;
+    box-shadow:0 6px 18px rgba(0,0,0,0.12);
+    transition:.3s;
+}
+
+.region-card:hover{
+    transform:translateY(-6px);
+}
+
+.region-card h4{
+    margin-bottom:15px;
+    color:#2d5a27;
+    font-size:18px;
+}
+
+.region-card img{
+    width:100%;
+    height:180px;
+    object-fit:cover;
+    border-radius:10px;
+    border:2px solid #dfe6e9;
+}
+
+@media(max-width:768px){
+
+    .regions-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .annotated-face{
+
+        width:100%;
+
+    }
+
+}
